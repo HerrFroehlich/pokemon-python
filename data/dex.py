@@ -9,25 +9,25 @@ import re
 
 #missing statuses, scripts, rulesets(formats), formatsdata( event pokemon and thespeed move_dex), aliases
 
-with open('data/abilities.json') as f:
+with open(os.path.join(os.path.dirname(__file__), 'data/abilities.json')) as f:
     abilities_raw_data = json.load(f)
-with open('data/formats.json') as f:
+with open(os.path.join(os.path.dirname(__file__), 'data/formats.json')) as f:
     formats_raw_data = json.load(f)
-with open('data/items.json') as f:
+with open(os.path.join(os.path.dirname(__file__), 'data/items.json')) as f:
     items_raw_data = json.load(f)
-with open('data/moves.json') as f:
+with open(os.path.join(os.path.dirname(__file__), 'data/moves.json')) as f:
     moves_raw_data = json.load(f)
-with open('data/pokedex.json') as f:
+with open(os.path.join(os.path.dirname(__file__), 'data/pokedex.json')) as f:
     pokemon_raw_data = json.load(f)
-with open('data/typechart.json') as f:
+with open(os.path.join(os.path.dirname(__file__), 'data/typechart.json')) as f:
     typecharts_raw_data = json.load(f)
-with open('data/natures.json') as f:
+with open(os.path.join(os.path.dirname(__file__), 'data/natures.json')) as f:
     natures_raw_data = json.load(f)
-with open('data/simple_learnsets.json') as f:
+with open(os.path.join(os.path.dirname(__file__), 'data/simple_learnsets.json')) as f:
     simple_learnsets = json.load(f)
-with open('data/sample_teams.json') as f:
+with open(os.path.join(os.path.dirname(__file__), 'data/sample_teams.json')) as f:
     sample_teams = json.load(f)
-with open('data/domains/all.json') as f:
+with open(os.path.join(os.path.dirname(__file__), 'data/domains/all.)json') as f:
     pokemon_raw_base = json.load(f)
 
 sample_teams = sample_teams
@@ -68,7 +68,7 @@ for item in items_raw_data:
 #POKEDEX
 #-------------
 
-pokemonAttributes = ['id', 'num', 'species', 'baseSpecies', 'forme', 'formeLetter', 'types', 
+pokemonAttributes = ['id', 'num', 'species', 'baseSpecies', 'forme', 'formeLetter', 'types',
                         'genderRatio', 'baseStats', 'abilities', 'heightm', 'weightkg', 'color',
                         'prevo', 'evos', 'evoLevel', 'eggGroups', 'otherFormes', 'tier', 'requiredItem']
 pokedex = {}
@@ -98,7 +98,7 @@ for i in pokemon_raw_data:
 #------------
 #ABILITIES
 #------------
-abilityAttributes = ['id', 'desc', 'shortDesc', 'name', 'rating', 'num', 'prevent_burn', 'prevent_par', 'prevent_slp', 'prevent_psn'] 
+abilityAttributes = ['id', 'desc', 'shortDesc', 'name', 'rating', 'num', 'prevent_burn', 'prevent_par', 'prevent_slp', 'prevent_psn']
 ability_dex = {}
 
 Ability = namedtuple('Ability', abilityAttributes) #way more props, supressweather, onmodifymovepriority, onbasepowerpriority
@@ -114,7 +114,7 @@ for i in abilities_raw_data:
 #---------
 #Format
 #---------
-formatAttributes = ['id', 'name', 'desc', 'mod', 'gameType', 'forcedLevel', 'teamLength', 'timer', 'ruleset', 'banlist'] 
+formatAttributes = ['id', 'name', 'desc', 'mod', 'gameType', 'forcedLevel', 'teamLength', 'timer', 'ruleset', 'banlist']
 format_dex = {}
 
 Format = namedtuple('Format', formatAttributes)
@@ -160,8 +160,8 @@ move_attributes = ['num', 'accuracy', 'category', 'desc', 'id', 'name', 'pp',
                    'priority', 'flags', 'type', 'terrain', 'crit_ratio',
                    'ignore_accuracy', 'weather', 'drain', 'heal', 'recoil',
                    'target_type', 'base_power', 'short_desc', 'ignore_ability',
-                   'ignore_defensive', 'ignore_evasion', 'ignore_immunity', 
-                   'breaks_protect', 'defensive_category', 'force_switch', 
+                   'ignore_defensive', 'ignore_evasion', 'ignore_immunity',
+                   'breaks_protect', 'defensive_category', 'force_switch',
                    'future_move', 'unreleased', 'viable', 'multi_hit',
                    'no_faint', 'no_pp_boosts', 'no_sketch', 'pseudo_weather',
                    'thaws_target', 'self_switch', 'side_condition', 'sleep_usable',
