@@ -3,31 +3,32 @@ import time
 from collections import namedtuple
 import random
 import re
+import os
 
 
 #this module is for searching the dex, aka all the game data
 
 #missing statuses, scripts, rulesets(formats), formatsdata( event pokemon and thespeed move_dex), aliases
 
-with open(os.path.join(os.path.dirname(__file__), 'data/abilities.json')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'abilities.json')) as f:
     abilities_raw_data = json.load(f)
-with open(os.path.join(os.path.dirname(__file__), 'data/formats.json')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'formats.json')) as f:
     formats_raw_data = json.load(f)
-with open(os.path.join(os.path.dirname(__file__), 'data/items.json')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'items.json')) as f:
     items_raw_data = json.load(f)
-with open(os.path.join(os.path.dirname(__file__), 'data/moves.json')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'moves.json')) as f:
     moves_raw_data = json.load(f)
-with open(os.path.join(os.path.dirname(__file__), 'data/pokedex.json')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'pokedex.json')) as f:
     pokemon_raw_data = json.load(f)
-with open(os.path.join(os.path.dirname(__file__), 'data/typechart.json')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'typechart.json')) as f:
     typecharts_raw_data = json.load(f)
-with open(os.path.join(os.path.dirname(__file__), 'data/natures.json')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'natures.json')) as f:
     natures_raw_data = json.load(f)
-with open(os.path.join(os.path.dirname(__file__), 'data/simple_learnsets.json')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'simple_learnsets.json')) as f:
     simple_learnsets = json.load(f)
-with open(os.path.join(os.path.dirname(__file__), 'data/sample_teams.json')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'sample_teams.json')) as f:
     sample_teams = json.load(f)
-with open(os.path.join(os.path.dirname(__file__), 'data/domains/all.)json') as f:
+with open(os.path.join(os.path.dirname(__file__), 'domains/all.json')) as f:
     pokemon_raw_base = json.load(f)
 
 sample_teams = sample_teams

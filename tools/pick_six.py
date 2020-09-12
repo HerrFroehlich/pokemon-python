@@ -12,7 +12,10 @@ abs_file_path = os.path.join(script_dir, rel_path)
 
 with open(abs_file_path) as f:
     vgc = json.load(f)
-with open('data/domains/all.json') as f:
+    
+rel_path = "../data/domains/all.json"
+abs_file_path = os.path.join(script_dir, rel_path)
+with open(abs_file_path) as f:
     domain_all = json.load(f)
 
 
