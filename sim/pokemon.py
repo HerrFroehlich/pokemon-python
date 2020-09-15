@@ -175,6 +175,9 @@ def can_z(P:Pokemon, move:dex.Move) -> bool:
     '''
     Returns true if this pokemon can use a z move.
     '''
+    if (P.item == ''):
+        return True
+
     item = dex.item_dex[P.item]
     # check the move type is correct.
     if item.zMoveType is not None and move.type != item.zMoveType:
