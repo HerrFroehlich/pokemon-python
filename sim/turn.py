@@ -18,7 +18,7 @@ ORDER OF FUNCTION CALL:
     turn_start
     create_move
     populate_action_queue
-    run_action 
+    run_action
         run_move
             update_move_before_running
             accuracy_check
@@ -76,10 +76,10 @@ def turn_end(B:Battle) -> None:
     for pokemon in get_active_pokemon(B):
         if pokemon.item == 'safteygoggles':
             continue
-        if B.weather == 'sandstorm': 
+        if B.weather == 'sandstorm':
             if {'Steel','Rock','Ground'}.isdisjoint(pokemon.types):
                 damage(pokemon, 1/16, flag='percentmaxhp')
-        if B.weather == 'hail': 
+        if B.weather == 'hail':
             if 'Ice' not in pokemon.types:
                 damage(pokemon, 1/16, flag='percentmaxhp')
 
@@ -114,7 +114,7 @@ def turn_end(B:Battle) -> None:
             pokemon.perishsong_n -= 1
             if pokemon.perishsong_n == 0:
                 faint(pokemon)
-        # encore 
+        # encore
         if 'encore' in pokemon.volatile_statuses:
             pokemon.encore_n -= 1
             if pokemon.encore_n == 0:
@@ -184,7 +184,7 @@ def run_action(B, a : Action) -> None:
             run_move(B, a.user, a.move, B.p1.active_pokemon[0])
         return
 
-    if a.target == 'all': 
+    if a.target == 'all':
         move = move._replace(base_power = move.base_power * 0.75)
         for pokemon in get_active_pokemon(B):
             B.run_move(user, move, pokemon)
@@ -271,7 +271,7 @@ def calc_damage(B:Battle, user:Pokemon, move:dex.Move, target:Pokemon) -> int:
     ONLY CALLED IN run_move()
     Calculates the amount of damage done to the target by the user
     using the move.
-    ''' 
+    '''
     # status moves do zero dmg, return early
     if move.category == 'Status':
         return 0
@@ -295,7 +295,7 @@ def calc_damage(B:Battle, user:Pokemon, move:dex.Move, target:Pokemon) -> int:
         defense = get_defense(target, crit, B.terrain)
 
     # Main damage formula.
-    dmg = (math.floor(math.floor(math.floor(((2 * user.level) / 5) + 2) * attack * power / defense) / 50) + 2) 
+    dmg = (math.floor(math.floor(math.floor(((2 * user.level) / 5) + 2) * attack * power / defense) / 50) + 2)
 
     # multiply the damage by each modifier
     modifier = 1
@@ -385,7 +385,7 @@ def calc_damage(B:Battle, user:Pokemon, move:dex.Move, target:Pokemon) -> int:
         if type_modifier < 1:
             modifier *= 2
 
-    # ITEMS    
+    # ITEMS
     if target.item == 'chilanberry' and move.type == 'Normal':
         modifier *= 0.5
     if user.item == 'expertbelt' and type_modifier > 1:
@@ -479,14 +479,14 @@ def accuracy_check(B:Battle, user:Pokemon, move:dex.Move, target:Pokemon) -> boo
     check = 100
     if B.rng:
         check = (move.accuracy * accuracy * evasion)
-    return temp < check 
+    return temp < check
 
 def boosts_statuses(B:Battle, user:Pokemon, move:dex.Move, target:Pokemon) -> None:
     '''
     ONLY CALLED in run_move()
     Handles boosts and statuses.
     '''
-    # stat changing moves 
+    # stat changing moves
     user_volatile_status = ''
     target_volatile_status = ''
     # primary effects
@@ -544,7 +544,7 @@ def update_move_before_running(B:Battle, user:Pokemon, move:dex.Move, target:Pok
 
     Some moves need to have their info updated based on the current state
     before running. the namedtuple._replace returns a new namedtuple
-    instance with updated values so we dont have to worry about ruining the 
+    instance with updated values so we dont have to worry about ruining the
     game data
     '''
     # update the moves power
@@ -668,10 +668,11 @@ def update_move_before_running(B:Battle, user:Pokemon, move:dex.Move, target:Pok
         move = move._replace(base_power = power)
 
     elif move.id == 'naturalgift':
-        item = dex.item_dex[user.item]
-        if item.isBerry:
-            move = move._replace(base_power = item.naturalGift['basePower'])
-            move = move._replace(type = item.naturalGift['type'])
+        if user.item != '':
+            item = dex.item_dex[user.item]
+            if item.isBerry:
+                move = move._replace(base_power = item.naturalGift['basePower'])
+                move = move._replace(type = item.naturalGift['type'])
     
     elif move.id == 'powertrip' or move.id == 'storedpower':
         power = 20
@@ -784,7 +785,7 @@ def unique_moves_after_damage(B:Battle, user:Pokemon, move:dex.Move, target:Poke
             if move.recoil.type == 'damage':
                 damage(user, dmg* move.recoil.damage)
 
-    # terrain moves 
+    # terrain moves
     if move.terrain is not None:
         B.terrain = move.terrain
 
@@ -821,7 +822,7 @@ def unique_moves_after_damage(B:Battle, user:Pokemon, move:dex.Move, target:Poke
         user.trapped = True
 
     # aromatherapy
-    #if move.id == 'aromatherapy' or move.id == 'healbell': 
+    #if move.id == 'aromatherapy' or move.id == 'healbell':
     #    for pokemon in user.side.pokemon:
     #        pokemon.cure_status()
 
@@ -1113,7 +1114,7 @@ def create_move(B:Battle, p:Pokemon, c:Decision) -> dex.Move:
     ONLY NEEDS BATTLE FOR the pokemon's players used_zmove attribute
 
     This method takes in the user pokemon and the decision corresponding
-    to that pokmeon and returns a Move (namedtuple) object that contains 
+    to that pokmeon and returns a Move (namedtuple) object that contains
     all information about the move that pokemon will use.
     '''
     if c.type != 'move':
@@ -1165,7 +1166,7 @@ def populate_action_queue(q:List, p:Pokemon, c:Decision, m:dex.Move,
 
     # generate SWITCH actions
     if c.type == 'switch':
-        a = Action('switch', user=p, pos=c.selection) 
+        a = Action('switch', user=p, pos=c.selection)
 
     # generate MEGA EVOLUTION actions
     elif c.type == 'mega' and c.mega:
