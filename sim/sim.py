@@ -27,7 +27,11 @@ def choose(B:Battle, player_uid:int, choice:str) -> None:
     to the given choice.
     '''
     choice = choice.split(' ')
-    c = Decision(choice[0], int(choice[1]))
+    choice_num = 0
+    if len(choice) > 1:
+        choice_num = int(choice[1])
+
+    c = Decision(choice[0], choice_num)
     if player_uid == 1:
             B.p1.choice = c
     if player_uid == 2:
@@ -99,7 +103,7 @@ def do_turn(B:Battle) -> None:
         print(q)
         print()
     while q:
-        priority, next_action = heapq.heappop(q) 
+        priority, next_action = heapq.heappop(q)
         run_action(B, next_action)
     
     if not B.pseudo_turn:
